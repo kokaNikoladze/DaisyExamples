@@ -97,15 +97,15 @@ typedef struct State {
 			return __exception;
 			
 		};
-		t_sample mul_3465 = (m_pot_1 * ((int)1000));
+		t_sample mul_3473 = (m_pot_1 * ((int)1000));
 		// the main sample loop;
 		while ((__n--)) {
 			const t_sample in1 = (*(__in1++));
-			__m_cycle_2.freq(mul_3465);
-			t_sample cycle_3466 = __m_cycle_2(__sinedata);
-			t_sample cycleindex_3467 = __m_cycle_2.phase();
-			t_sample mul_3464 = (cycle_3466 * ((t_sample)0.25));
-			t_sample out1 = mul_3464;
+			__m_cycle_2.freq(mul_3473);
+			t_sample cycle_3474 = __m_cycle_2(__sinedata);
+			t_sample cycleindex_3475 = __m_cycle_2.phase();
+			t_sample mul_3472 = (cycle_3474 * ((t_sample)0.25));
+			t_sample out1 = mul_3472;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			
