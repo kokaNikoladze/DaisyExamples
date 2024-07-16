@@ -61,16 +61,16 @@ Details of the GPLv3 license can be found at: https://www.gnu.org/licenses/gpl-3
 
 #include "genlib_common_win.h"
 
-#if defined(ARM_MATH_CM4) || defined(ARM_MATH_CM7) // embedded ARM cortex support
+#if defined(ARM_MATH_CM4) \
+    || defined(ARM_MATH_CM7) // embedded ARM cortex support
 #define GENLIB_NO_STDLIB
 #define GENLIB_USE_ARMMATH
 #define GENLIB_USE_FASTMATH
 #endif // defined(ARM_MATH_CM4) || defined(ARM_MATH_CM7)
 
-#if defined (__arm__) // general ARM support
+#if defined(__arm__) // general ARM support
 #define GENLIB_USE_FLOAT32
 #endif
-
 
 
 #endif // ifdef GENLIB_PLATFORM_H
