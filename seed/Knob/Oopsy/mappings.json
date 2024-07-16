@@ -1,0 +1,52 @@
+{
+  "components": {
+    "knob01": { "component": "AnalogControl", "pin": 15 },
+    "knob02": { "component": "AnalogControl", "pin": 16 },
+    "knob03": { "component": "AnalogControl", "pin": 17 },
+    "knob04": { "component": "AnalogControl", "pin": 18 },
+    "knob05": { "component": "AnalogControl", "pin": 19 },
+    "knob06": { "component": "AnalogControl", "pin": 20 },
+    "knob07": { "component": "AnalogControl", "pin": 21 },
+    "knob08": { "component": "AnalogControl", "pin": 22 },
+    "knob09": { "component": "AnalogControl", "pin": 23 },
+    "knob10": { "component": "AnalogControl", "pin": 24 },
+    "knob11": { "component": "AnalogControl", "pin": 25 },
+    "knob12": { "component": "AnalogControl", "pin": 26 },
+    "encoder": {
+      "component": "Encoder",
+      "pin": { "a": 0, "b": 1, "click": 2 }
+    },
+    "button1": { "component": "Switch", "pin": 3 },
+    "button2": { "component": "Switch", "pin": 4 },
+    "button3": { "component": "Switch", "pin": 5 },
+    "button4": { "component": "Switch", "pin": 6 },
+    "led1": { "component": "Led", "pin": 7 },
+    "led2": { "component": "Led", "pin": 8 },
+    "led3": { "component": "Led", "pin": 9 },
+    "led4": { "component": "Led", "pin": 10 },
+    "led5": { "component": "Led", "pin": 11 },
+    "led6": { "component": "Led", "pin": 12 },
+    "led7": { "component": "Led", "pin": 13 },
+    "led8": { "component": "Led", "pin": 14 }
+  },
+  "aliases": {
+    "pot01": "knob01",
+    "pot02": "knob02",
+    "pot03": "knob03",
+    "pot04": "knob04",
+    "pot05": "knob05",
+    "pot06": "knob06",
+    "pot07": "knob07",
+    "pot08": "knob08",
+    "pot09": "knob09",
+    "pot10": "knob10",
+    "pot11": "knob11",
+    "pot12": "knob12",
+    "enc": "encoder",
+    "enc_press": "encoder_press",
+    "btn1": "button1",
+    "btn2": "button2",
+    "btn3": "button3",
+    "btn4": "button4"
+  }
+}
