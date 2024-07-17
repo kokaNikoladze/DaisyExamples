@@ -15,7 +15,7 @@ constexpr uint8_t INPUT_TO_12BIT      = 4;
 constexpr uint8_t UPSCALE_12_TO_14BIT = 2;
 
 uint8_t mode = 0;  // 0: Pitch Bend, 1: NRPN-like CC, 2: Simple 7-bit CC
-const uint32_t updateInterval = 1;
+const uint32_t updateInterval = 1; //update interval in ms
 
 Switch button;
 
