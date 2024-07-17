@@ -14,7 +14,7 @@ constexpr uint8_t MSB_SHIFT           = 7;
 constexpr uint8_t INPUT_TO_12BIT      = 4;
 constexpr uint8_t UPSCALE_12_TO_14BIT = 2;
 
-uint8_t mode = 0;  // 0: Pitch Bend, 1: NRPN-like CC, 2: Simple 7-bit CC
+uint8_t        mode = 0; // 0: Pitch Bend, 1: NRPN-like CC, 2: Simple 7-bit CC
 const uint32_t updateInterval = 1; //update interval in ms
 
 Switch button;
@@ -49,7 +49,7 @@ int main(void)
 {
     hw.Configure();
     hw.Init();
-  
+
     MidiUsbHandler::Config midi_cfg;
     midi_cfg.transport_config.periph = MidiUsbTransport::Config::INTERNAL;
     midi.Init(midi_cfg);
@@ -68,44 +68,48 @@ int main(void)
                 Switch::PULL_UP);
 
     uint16_t prevValues[NUM_ADC_CHANNELS] = {0};
-    uint8_t pitchBendMessage[3] = {PITCH_BEND_STATUS, 0, 0};
+    uint8_t  pitchBendMessage[3]          = {PITCH_BEND_STATUS, 0, 0};
 
     uint32_t lastUpdateTime = System::GetNow();
 
-    while(1) {
+    while(1)
+    {
         uint32_t currentTime = System::GetNow();
-        
-        if (currentTime - lastUpdateTime >= updateInterval) {
+
+        if(currentTime - lastUpdateTime >= updateInterval)
+        {
             lastUpdateTime = currentTime;
 
             midi.Listen();
             hw.adc.Start();
 
             button.Debounce();
-            if (button.RisingEdge()) {
+            if(button.RisingEdge())
+            {
                 mode = (mode + 1) % 3;
             }
 
-            for(int i = 0; i < NUM_ADC_CHANNELS; i++) {
+            for(int i = 0; i < NUM_ADC_CHANNELS; i++)
+            {
                 uint16_t rawValue = hw.adc.Get(i) >> INPUT_TO_12BIT;
                 filters[i].update(rawValue);
                 uint16_t filteredValue = filters[i].getValue();
-                uint16_t value = filteredValue << UPSCALE_12_TO_14BIT;
+                uint16_t value         = filteredValue << UPSCALE_12_TO_14BIT;
 
-                if (filters[i].hasChanged() && value != prevValues[i]) {
-                    switch(mode) {
+                if(filters[i].hasChanged() && value != prevValues[i])
+                {
+                    switch(mode)
+                    {
                         case 0:
                             pitchBendMessage[0] = PITCH_BEND_STATUS | (i % 16);
                             pitchBendMessage[1] = value & LSB_MASK;
-                            pitchBendMessage[2] = (value >> MSB_SHIFT) & LSB_MASK;
-                            midi.SendMessage(pitchBendMessage, sizeof(pitchBendMessage));
+                            pitchBendMessage[2]
+                                = (value >> MSB_SHIFT) & LSB_MASK;
+                            midi.SendMessage(pitchBendMessage,
+                                             sizeof(pitchBendMessage));
                             break;
-                        case 1:
-                            SendNRPNLikeCC(i % 16, value);
-                            break;
-                        case 2:
-                            SendSimpleCC(i % 16, value >> 7);
-                            break;
+                        case 1: SendNRPNLikeCC(i % 16, value); break;
+                        case 2: SendSimpleCC(i % 16, value >> 7); break;
                     }
                     prevValues[i] = value;
                 }
