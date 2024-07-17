@@ -3,15 +3,15 @@
 
 using namespace daisy;
 
-DaisySeed hw;
+DaisySeed      hw;
 MidiUsbHandler midi;
 
-constexpr int NUM_ADC_CHANNELS = 12;
-constexpr uint8_t PITCH_BEND_STATUS = 0xE0;
-constexpr uint8_t Cc = 0xB0;
-constexpr uint8_t LSB_MASK = 0x7F;
-constexpr uint8_t MSB_SHIFT = 7;
-constexpr uint8_t INPUT_TO_12BIT = 4;
+constexpr int     NUM_ADC_CHANNELS    = 12;
+constexpr uint8_t PITCH_BEND_STATUS   = 0xE0;
+constexpr uint8_t Cc                  = 0xB0;
+constexpr uint8_t LSB_MASK            = 0x7F;
+constexpr uint8_t MSB_SHIFT           = 7;
+constexpr uint8_t INPUT_TO_12BIT      = 4;
 constexpr uint8_t UPSCALE_12_TO_14BIT = 2;
 
 uint8_t mode = 0;  // 0: Pitch Bend, 1: NRPN-like CC, 2: Simple 7-bit CC
@@ -21,23 +21,32 @@ Switch button;
 
 magicFilter filters[NUM_ADC_CHANNELS];
 
-void SendNRPNLikeCC(uint8_t baseChannel, uint16_t value) {
+void SendNRPNLikeCC(uint8_t baseChannel, uint16_t value)
+{
     uint8_t lsb = value & LSB_MASK;
     uint8_t msb = (value >> MSB_SHIFT) & LSB_MASK;
 
-    uint8_t ccMessageLSB[3] = {static_cast<uint8_t>(Cc | baseChannel), static_cast<uint8_t>(baseChannel + 1), lsb};
-    uint8_t ccMessageMSB[3] = {static_cast<uint8_t>(Cc | baseChannel), static_cast<uint8_t>(baseChannel + 33), msb};
+    uint8_t ccMessageLSB[3] = {static_cast<uint8_t>(Cc | baseChannel),
+                               static_cast<uint8_t>(baseChannel + 1),
+                               lsb};
+    uint8_t ccMessageMSB[3] = {static_cast<uint8_t>(Cc | baseChannel),
+                               static_cast<uint8_t>(baseChannel + 33),
+                               msb};
 
     midi.SendMessage(ccMessageLSB, sizeof(ccMessageLSB));
     midi.SendMessage(ccMessageMSB, sizeof(ccMessageMSB));
 }
 
-void SendSimpleCC(uint8_t channel, uint8_t value) {
-    uint8_t ccMessage[3] = {static_cast<uint8_t>(Cc | channel), static_cast<uint8_t>(channel + 1), value};
+void SendSimpleCC(uint8_t channel, uint8_t value)
+{
+    uint8_t ccMessage[3] = {static_cast<uint8_t>(Cc | channel),
+                            static_cast<uint8_t>(channel + 1),
+                            value};
     midi.SendMessage(ccMessage, sizeof(ccMessage));
 }
 
-int main(void) {
+int main(void)
+{
     hw.Configure();
     hw.Init();
   
@@ -46,12 +55,17 @@ int main(void) {
     midi.Init(midi_cfg);
 
     AdcChannelConfig adcConfig[NUM_ADC_CHANNELS];
-    for (int i = 0; i < NUM_ADC_CHANNELS; i++) {
+    for(int i = 0; i < NUM_ADC_CHANNELS; i++)
+    {
         adcConfig[i].InitSingle(hw.GetPin(15 + i));
     }
     hw.adc.Init(adcConfig, NUM_ADC_CHANNELS);
 
-    button.Init(hw.GetPin(0), 20, Switch::TYPE_MOMENTARY, Switch::POLARITY_INVERTED, Switch::PULL_UP);
+    button.Init(hw.GetPin(0),
+                20,
+                Switch::TYPE_MOMENTARY,
+                Switch::POLARITY_INVERTED,
+                Switch::PULL_UP);
 
     uint16_t prevValues[NUM_ADC_CHANNELS] = {0};
     uint8_t pitchBendMessage[3] = {PITCH_BEND_STATUS, 0, 0};
