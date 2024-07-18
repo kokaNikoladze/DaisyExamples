@@ -8,9 +8,11 @@ DaisySeed      hw;
 MidiUsbHandler midi;
 MyDSP          dsp;
 
-void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size)
+void AudioCallback(AudioHandle::InputBuffer  in,
+                   AudioHandle::OutputBuffer out,
+                   size_t                    size)
 {
-    for (size_t i = 0; i < size; i++)
+    for(size_t i = 0; i < size; i++)
     {
         float sample = dsp.Process();
         out[0][i] = out[1][i] = sample;
@@ -67,7 +69,7 @@ int main(void)
     dsp.Init(sample_rate);
 
     hw.StartAudio(AudioCallback);
-  
+
     MidiUsbHandler::Config midi_cfg;
     midi_cfg.transport_config.periph = MidiUsbTransport::Config::INTERNAL;
     midi.Init(midi_cfg);
@@ -131,9 +133,9 @@ int main(void)
                     }
                     prevValues[i] = value;
                 }
-
             }
-            float freq = ((float)filters[0].getValue() / 4096.0f) * 660.0f + 220.0f;
+            float freq
+                = ((float)filters[0].getValue() / 4096.0f) * 660.0f + 220.0f;
             dsp.SetFreq(freq);
             dsp.SetAmp(0.15);
         }
