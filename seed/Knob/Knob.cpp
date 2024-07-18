@@ -1,10 +1,21 @@
 #include "daisy_seed.h"
+#include "my_dsp.h"
 #include "magicFilter.h"
 
 using namespace daisy;
 
 DaisySeed      hw;
 MidiUsbHandler midi;
+MyDSP          dsp;
+
+void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size)
+{
+    for (size_t i = 0; i < size; i++)
+    {
+        float sample = dsp.Process();
+        out[0][i] = out[1][i] = sample;
+    }
+}
 
 constexpr int     NUM_ADC_CHANNELS    = 12;
 constexpr uint8_t PITCH_BEND_STATUS   = 0xE0;
@@ -49,6 +60,13 @@ int main(void)
 {
     hw.Configure();
     hw.Init();
+    hw.SetAudioBlockSize(1);
+    hw.SetAudioSampleRate(SaiHandle::Config::SampleRate::SAI_96KHZ);
+    float sample_rate = hw.AudioSampleRate();
+
+    dsp.Init(sample_rate);
+
+    hw.StartAudio(AudioCallback);
   
     MidiUsbHandler::Config midi_cfg;
     midi_cfg.transport_config.periph = MidiUsbTransport::Config::INTERNAL;
@@ -109,7 +127,11 @@ int main(void)
                     }
                     prevValues[i] = value;
                 }
+
             }
+            float freq = ((float)filters[0].getValue() / 4096.0f) * 660.0f + 220.0f;
+            dsp.SetFreq(freq);
+            dsp.SetAmp(0.15);
         }
 
         // Yield to system

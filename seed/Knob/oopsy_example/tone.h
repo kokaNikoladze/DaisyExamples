@@ -61,29 +61,24 @@ Details of the GPLv3 license can be found at: https://www.gnu.org/licenses/gpl-3
 #include "genlib_exportfunctions.h"
 #include "genlib_ops.h"
 
-namespace tone
-{
-int  num_inputs();
-int  num_outputs();
-int  num_params();
-int  perform(CommonState *cself,
-             t_sample **  ins,
-             long         numins,
-             t_sample **  outs,
-             long         numouts,
-             long         n);
+namespace tone {
+
+int num_inputs();
+int num_outputs();
+int num_params();
+int perform(CommonState *cself, t_sample **ins, long numins, t_sample **outs, long numouts, long n);
 void reset(CommonState *cself);
 void setparameter(CommonState *cself, long index, t_param value, void *ref);
 void getparameter(CommonState *cself, long index, t_param *value);
 const char *getparametername(CommonState *cself, long index);
-t_param     getparametermin(CommonState *cself, long index);
-t_param     getparametermax(CommonState *cself, long index);
-char        getparameterhasminmax(CommonState *cself, long index);
+t_param getparametermin(CommonState *cself, long index);
+t_param getparametermax(CommonState *cself, long index);
+char getparameterhasminmax(CommonState *cself, long index);
 const char *getparameterunits(CommonState *cself, long index);
-size_t      getstatesize(CommonState *cself);
-short       getstate(CommonState *cself, char *state);
-short       setstate(CommonState *cself, const char *state);
-void *      create(t_param sr, long vs);
-void        destroy(CommonState *cself);
+size_t getstatesize(CommonState *cself);
+short getstate(CommonState *cself, char *state);
+short setstate(CommonState *cself, const char *state);
+void *create(t_param sr, long vs);
+void destroy(CommonState *cself);
 
-} // namespace tone
+} // tone::

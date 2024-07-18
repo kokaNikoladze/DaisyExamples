@@ -60,22 +60,24 @@ Details of the GPLv3 license can be found at: https://www.gnu.org/licenses/gpl-3
 #define GENLIB_COMMON_WIN_H
 
 #ifdef _MSC_VER
-#define GEN_WINDOWS
+	#define GEN_WINDOWS
 #endif
 
 #ifdef GEN_WINDOWS
 
-#include <malloc.h>
-#include <limits>
+	#include <malloc.h>
+	#include <limits>
 
-typedef __int32          int32_t;
-typedef unsigned __int32 uint32_t;
-typedef __int64          int64_t;
-typedef unsigned __int64 uint64_t;
-#define malloc_size _msize
+	typedef __int32 int32_t;
+	typedef unsigned __int32 uint32_t;
+	typedef __int64 int64_t;
+	typedef unsigned __int64 uint64_t;
+	#define malloc_size _msize
 
-#define __DBL_EPSILON__ (DBL_EPSILON)
+	#define __DBL_EPSILON__ (DBL_EPSILON)
+
+#endif
 
 #endif
 
-#endif
+

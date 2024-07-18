@@ -1,6 +1,6 @@
 {
 	"class": "Module",
-	"id": "node_77731",
+	"id": "node_77847",
 	"inlets": {
 		
 	},
@@ -17,16 +17,16 @@
 	},
 	"block": {
 		"class": "Block",
-		"id": "node_77758",
+		"id": "node_77874",
 		"children": [
 			{
 				"class": "Declaration",
-				"id": "node_77733",
+				"id": "node_77849",
 				"name": "pot01",
 				"inputs": [
 					{
 						"class": "Constant",
-						"id": "node_77757",
+						"id": "node_77873",
 						"value": 440,
 						"eval": 440,
 						"type": "constant int",
@@ -36,7 +36,7 @@
 				"attributes": {
 					"max": {
 						"class": "Attribute",
-						"id": "node_77735",
+						"id": "node_77851",
 						"name": "max",
 						"value": {
 							"class": "Constant",
@@ -49,7 +49,7 @@
 					},
 					"default": {
 						"class": "Attribute",
-						"id": "node_77736",
+						"id": "node_77852",
 						"name": "default",
 						"value": {
 							"class": "Constant",
@@ -62,7 +62,7 @@
 					},
 					"min": {
 						"class": "Attribute",
-						"id": "node_77737",
+						"id": "node_77853",
 						"name": "min",
 						"value": {
 							"class": "Constant",
@@ -80,23 +80,23 @@
 			},
 			{
 				"class": "Statement",
-				"id": "node_77738",
+				"id": "node_77854",
 				"inputs": [
 					{
 						"class": "Expression",
-						"id": "node_77739",
+						"id": "node_77855",
 						"operator": "mul",
 						"inputs": [
 							{
 								"class": "Variable",
-								"id": "node_77740",
+								"id": "node_77856",
 								"name": "pot01",
 								"type": "control t_sample",
 								"source": "box: [mul $in1 1000.] => mul_3481"
 							},
 							{
 								"class": "Constant",
-								"id": "node_77741",
+								"id": "node_77857",
 								"value": "1000.",
 								"eval": 1000,
 								"type": "constant int",
@@ -113,7 +113,7 @@
 				"outputs": [
 					{
 						"class": "Variable",
-						"id": "node_77742",
+						"id": "node_77858",
 						"name": "mul_3481",
 						"type": "control t_sample",
 						"source": "box: [mul $in1 1000.] => mul_3481"
@@ -123,16 +123,16 @@
 			},
 			{
 				"class": "Statement",
-				"id": "node_77743",
+				"id": "node_77859",
 				"inputs": [
 					{
 						"class": "Expression",
-						"id": "node_77744",
+						"id": "node_77860",
 						"operator": "cycle",
 						"inputs": [
 							{
 								"class": "Variable",
-								"id": "node_77745",
+								"id": "node_77861",
 								"name": "mul_3481",
 								"type": "control t_sample",
 								"source": "box: [cycle $in1] => cycle_3482,cycleindex_3483"
@@ -148,14 +148,14 @@
 				"outputs": [
 					{
 						"class": "Variable",
-						"id": "node_77746",
+						"id": "node_77862",
 						"name": "cycle_3482",
 						"type": "signal t_sample",
 						"source": "box: [cycle $in1] => cycle_3482,cycleindex_3483"
 					},
 					{
 						"class": "Variable",
-						"id": "node_77747",
+						"id": "node_77863",
 						"name": "cycleindex_3483",
 						"type": "signal t_sample",
 						"source": "box: [cycle $in1] => cycle_3482,cycleindex_3483"
@@ -165,23 +165,23 @@
 			},
 			{
 				"class": "Statement",
-				"id": "node_77748",
+				"id": "node_77864",
 				"inputs": [
 					{
 						"class": "Expression",
-						"id": "node_77749",
+						"id": "node_77865",
 						"operator": "mul",
 						"inputs": [
 							{
 								"class": "Variable",
-								"id": "node_77750",
+								"id": "node_77866",
 								"name": "cycle_3482",
 								"type": "signal t_sample",
 								"source": "box: [mul $in1 0.25] => mul_3480"
 							},
 							{
 								"class": "Constant",
-								"id": "node_77751",
+								"id": "node_77867",
 								"value": "0.25",
 								"eval": 0.25,
 								"type": "constant t_sample",
@@ -198,7 +198,7 @@
 				"outputs": [
 					{
 						"class": "Variable",
-						"id": "node_77752",
+						"id": "node_77868",
 						"name": "mul_3480",
 						"type": "signal t_sample",
 						"source": "box: [mul $in1 0.25] => mul_3480"
@@ -208,11 +208,11 @@
 			},
 			{
 				"class": "Statement",
-				"id": "node_77753",
+				"id": "node_77869",
 				"inputs": [
 					{
 						"class": "Variable",
-						"id": "node_77754",
+						"id": "node_77870",
 						"name": "mul_3480",
 						"type": "signal t_sample",
 						"source": "box: [out 1 $in1] => "
@@ -221,7 +221,7 @@
 				"outputs": [
 					{
 						"class": "Variable",
-						"id": "node_77755",
+						"id": "node_77871",
 						"name": "out1",
 						"type": "signal t_sample",
 						"source": "box: [out 1 $in1] => "
