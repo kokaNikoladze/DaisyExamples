@@ -66,57 +66,60 @@ static const int GENLIB_LOOPCOUNT_BAIL = 100000;
 
 
 // The State struct contains all the state and procedures for the gendsp kernel
-typedef struct State {
-	CommonState __commonstate;
-	SineCycle __m_cycle_2;
-	SineData __sinedata;
-	int __exception;
-	int vectorsize;
-	t_sample m_pot_1;
-	t_sample samplerate;
-	// re-initialize all member variables;
-	inline void reset(t_param __sr, int __vs) {
-		__exception = 0;
-		vectorsize = __vs;
-		samplerate = __sr;
-		m_pot_1 = 440;
-		__m_cycle_2.reset(samplerate, 0);
-		genlib_reset_complete(this);
-		
-	};
-	// the signal processing routine;
-	inline int perform(t_sample ** __ins, t_sample ** __outs, int __n) {
-		vectorsize = __n;
-		const t_sample * __in1 = __ins[0];
-		t_sample * __out1 = __outs[0];
-		if (__exception) {
-			return __exception;
-			
-		} else if (( (__in1 == 0) || (__out1 == 0) )) {
-			__exception = GENLIB_ERR_NULL_BUFFER;
-			return __exception;
-			
-		};
-		t_sample mul_3481 = (m_pot_1 * ((int)1000));
-		// the main sample loop;
-		while ((__n--)) {
-			const t_sample in1 = (*(__in1++));
-			__m_cycle_2.freq(mul_3481);
-			t_sample cycle_3482 = __m_cycle_2(__sinedata);
-			t_sample cycleindex_3483 = __m_cycle_2.phase();
-			t_sample mul_3480 = (cycle_3482 * ((t_sample)0.25));
-			t_sample out1 = mul_3480;
-			// assign results to output buffer;
-			(*(__out1++)) = out1;
-			
-		};
-		return __exception;
-		
-	};
-	inline void set_pot01(t_param _value) {
-		m_pot_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
-	};
-	
+typedef struct State
+{
+    CommonState __commonstate;
+    SineCycle   __m_cycle_2;
+    SineData    __sinedata;
+    int         __exception;
+    int         vectorsize;
+    t_sample    m_pot_1;
+    t_sample    samplerate;
+    // re-initialize all member variables;
+    inline void reset(t_param __sr, int __vs)
+    {
+        __exception = 0;
+        vectorsize  = __vs;
+        samplerate  = __sr;
+        m_pot_1     = 440;
+        __m_cycle_2.reset(samplerate, 0);
+        genlib_reset_complete(this);
+    };
+    // the signal processing routine;
+    inline int perform(t_sample **__ins, t_sample **__outs, int __n)
+    {
+        vectorsize             = __n;
+        const t_sample *__in1  = __ins[0];
+        t_sample *      __out1 = __outs[0];
+        if(__exception)
+        {
+            return __exception;
+        }
+        else if(((__in1 == 0) || (__out1 == 0)))
+        {
+            __exception = GENLIB_ERR_NULL_BUFFER;
+            return __exception;
+        };
+        t_sample mul_3481 = (m_pot_1 * ((int)1000));
+        // the main sample loop;
+        while((__n--))
+        {
+            const t_sample in1 = (*(__in1++));
+            __m_cycle_2.freq(mul_3481);
+            t_sample cycle_3482      = __m_cycle_2(__sinedata);
+            t_sample cycleindex_3483 = __m_cycle_2.phase();
+            t_sample mul_3480        = (cycle_3482 * ((t_sample)0.25));
+            t_sample out1            = mul_3480;
+            // assign results to output buffer;
+            (*(__out1++)) = out1;
+        };
+        return __exception;
+    };
+    inline void set_pot01(t_param _value)
+    {
+        m_pot_1 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+    };
+
 } State;
 
 
